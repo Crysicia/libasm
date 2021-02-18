@@ -1,16 +1,13 @@
-SECTION .data
-msg db 'Hello World !', 0Ah
+section .text
+global ft_strlen
 
-SECTION .text
-global _start
+ft_strlen:
+	mov		rax, 0
 
-_start:
-	mov edx, 14
-	mov ecx, msg
-	mov ebx, 1
-	mov eax, 4
-	int 80h
+count:
+	inc		rax
+	cmp		byte [rdi + rax], 0
+	jnz		count
 
-	mov ebx, 0
-	mov eax, 1
-	int 80h
+exit:
+	ret
