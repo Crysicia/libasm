@@ -6,13 +6,15 @@
 #    By: lpassera <lpassera@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/18 15:41:20 by lpassera          #+#    #+#              #
-#    Updated: 2021/02/18 16:42:56 by lpassera         ###   ########.fr        #
+#    Updated: 2021/02/22 14:22:00 by lpassera         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= libasm.a
 
-SRCS		= ft_strlen.s
+SRCS		= ft_strlen.s \
+			  ft_write.s \
+			  everything.s
 OBJS		= $(SRCS:.s=.o)
 ASM			= nasm
 ASM_FLAGS	= -f elf64
