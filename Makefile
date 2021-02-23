@@ -6,7 +6,7 @@
 #    By: lpassera <lpassera@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/18 15:41:20 by lpassera          #+#    #+#              #
-#    Updated: 2021/02/23 14:21:59 by lpassera         ###   ########.fr        #
+#    Updated: 2021/02/23 16:50:18 by lpassera         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ SRCS		= ft_strlen.s \
 			  ft_read.s \
 			  ft_strcpy.s \
 			  ft_strcmp.s \
-			  everything.s
+			  ft_strdup.s
 OBJS		= $(SRCS:.s=.o)
 ASM			= nasm
 ASM_FLAGS	= -f elf64

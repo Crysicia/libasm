@@ -11,16 +11,18 @@ increment:
 
 compare:
 	cmp byte [rsi], 0
-	jz exit
+	jz return_value
 	cmp byte [rdi], 0
-	jz exit
+	jz return_value
 	mov rax, [rdi]
 	cmp rax, [rsi]
 	jz	increment
 
-exit:
+return_value:
 	mov rax, [rdi]
 	sub rax, [rsi]
+
+exit:
 	ret
 ; section .text
 ; 	global ft_strcmp
