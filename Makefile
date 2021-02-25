@@ -6,7 +6,7 @@
 #    By: lpassera <lpassera@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/18 15:41:20 by lpassera          #+#    #+#              #
-#    Updated: 2021/02/23 16:50:18 by lpassera         ###   ########.fr        #
+#    Updated: 2021/02/25 11:55:19 by lpassera         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,5 +42,8 @@ fclean: clean
 
 test: $(NAME)
 	$(CC) $(CC_FLAGS) main.c $(LIB_FLAGS)
+
+clean_test:
+	rm -rf a.out
 
 re: fclean $(NAME)
