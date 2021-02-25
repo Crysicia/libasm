@@ -3,6 +3,7 @@ section .text
 
 ft_strcmp:
 	xor	rax, rax
+	xor	rbx, rbx
 	jmp compare
 
 increment:
@@ -10,15 +11,17 @@ increment:
 	inc rdi
 
 compare:
-	cmp byte [rdi], 0
+	mov al, [rdi]
+	cmp al, 0
 	jz return_value
-	mov rax, [rdi]
-	cmp rax, [rsi]
+	mov bl, [rsi]
+	cmp al, bl
 	jz	increment
 
 return_value:
-	mov rax, [rdi]
-	sub rax, [rsi]
+	mov al, [rdi]
+	mov bl, [rsi]
+	sub rax, rbx
 
 exit:
 	ret

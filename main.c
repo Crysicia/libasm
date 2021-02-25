@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
 	(void)argc;
 	FT_STRLEN(argv[1]);
 	FT_WRITE(2, argv[1], strlen(argv[1]));
-	printf("%i\n", ft_strcmp(" ", "s"));
+	printf("%i\n", ft_strcmp("bonjour", ""));
 	printf("%s\n", ft_strdup("Yo les gens"));
 	return 0;
 }
