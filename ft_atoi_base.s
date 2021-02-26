@@ -9,6 +9,11 @@ ft_atoi_base:
 	mov r8, 1	 	; Store sign
 	mov r9, -1		; Base length
 
+	cmp rsi, 0
+	je error
+	cmp rdi, 0
+	je error
+
 check_base_loop:
 	inc rcx
 	cmp byte [rsi + rcx], 0
@@ -77,7 +82,8 @@ skip_signs:
 	je skip_signs
 	cmp dl, 45
 	je handle_sign
-	mov rcx, -1
+	mov rcx, rbx
+	dec rcx
 
 atoi:
 	inc rcx
