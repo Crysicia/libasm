@@ -4,19 +4,50 @@ section .text
 ; int ft_atoi_base(char *str, char *base)
 ft_atoi_base:
 	xor rax, rax
-	xor rcx, rcx
+	mov rcx, -1
 	xor rdx, rdx
+	xor rbx, rbx
+	xor r8, r8
 
 check_base_loop:
-	cmp byte [rsi + rcx + 1], 0
+	inc rcx
+	cmp byte [rsi + rcx], 0
 	jz check_base
-	mov bl, [rsi + rcx]
-	mov bh, [rsi + rcx + 1]
-	jmp check_base_loop
-	
+	mov dl, [rsi + rcx]
+
+forbidden_char:
+	cmp dl, 9
+	je error
+	cmp dl, 10
+	je error
+	cmp dl, 11
+	je error
+	cmp dl, 12
+	je error
+	cmp dl, 13
+	je error
+	cmp dl, 32
+	je error
+	cmp dl, 43
+	je error
+	cmp dl, 45
+	je error
+	mov rbx, rcx
+
+check_base_inner_loop:
+	inc rbx
+	mov dh, byte [rsi + rbx]
+	cmp dh, 0
+	jz check_base_loop
+	cmp dl, dh
+	je error
+	jmp check_base_inner_loop
+
 check_base:
-	cmp rax, 1
+	cmp rcx, 1
 	jle error
+	mov rax, 1
+	jmp exit
 
 error:
 	xor rax, rax

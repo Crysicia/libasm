@@ -11,6 +11,8 @@ ssize_t	ft_write(int fd, const void *str, unsigned int size);
 int		ft_strcmp(const char *s1, const char *s2);
 char	*ft_strdup(const char *s1);
 
+int lulutest(int i);
+
 #define FT_STRCMP(s1, s2)		printf("{[%s], [%s]} - ("SYSTEM"): %i, ("FT"): %i\n", s1, s2, strcmp(s1, s2), ft_strcmp(s1, s2));
 #define FT_STRLEN(str)			printf("{%s} - (System): %ld, (ft): %ld\n", str, strlen(str), ft_strlen(str));
 #define FT_WRITE(fd, str, size) printf("{%i, %s, %ld} - (System): %ld, (ft): %ld\n", fd, str, size, write(fd, str, size), ft_write(fd, str, size));
@@ -23,6 +25,7 @@ char	*ft_strdup(const char *s1);
 int main(int argc, char *argv[])
 {
 	(void)argc;
+	// printf("Greater: %i, Equal: %i, Less: %i\n", lulutest(50), lulutest(42), lulutest(0));
 	FT_STRLEN(argv[1]);
 	FT_WRITE(4, argv[1], strlen(argv[1]));
 	printf("--- \e[1;36mft_strcmp\e[0m ---\n");
