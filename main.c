@@ -10,6 +10,7 @@ size_t	ft_strlen(char *str);
 ssize_t	ft_write(int fd, const void *str, unsigned int size);
 int		ft_strcmp(const char *s1, const char *s2);
 char	*ft_strdup(const char *s1);
+char	*ft_strcpy(char *dest, const char *src);
 
 int lulutest(int i);
 
@@ -29,6 +30,9 @@ int main(int argc, char *argv[])
 	FT_STRLEN(argv[1]);
 	FT_WRITE(4, argv[1], strlen(argv[1]));
 	printf("--- \e[1;36mft_strcmp\e[0m ---\n");
+	char dest[100];
+
+	printf("[%s]\n", ft_strcpy(dest, "hello"));
 	FT_STRCMP("bonjour", "bonjour");
 	FT_STRCMP("bonjour", "");
 	FT_STRCMP("", "bonjour");

@@ -9,7 +9,7 @@ int main(int argc, char *argv[])
 {
 	(void)argc;
 	(void)argv;
-	printf("VALID Return: %i\n", ft_atoi_base("123456", "01"));
+	printf("VALID Return: %i\n", ft_atoi_base("  +23", "0123456789"));
 	printf("VALID Return: %i\n", ft_atoi_base("loool", "0123456789ABCDEF"));
 	printf("VALID Return: %i\n", ft_atoi_base("    ---++--aasasd", "0123456789ABCDEF"));
 	printf("VALID Return: %i\n", ft_atoi_base("--aasasd", "0123456789ABCDEF"));

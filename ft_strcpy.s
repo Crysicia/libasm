@@ -3,15 +3,15 @@ section .text
 
 ; rdi: src, rsi: dst
 ft_strcpy:
-	mov		rax, rdi
+	mov		rcx, -1
 
 copy:
-	mov		al, [rsi]
-	mov		[rdi], al
-	inc		rdi
-	inc		rsi
+	inc		rcx
+	mov		al, [rsi + rcx]
+	mov		[rdi + rcx], al
 	cmp		al, 0
 	jnz		copy
 
 exit:
+	mov		rax, rdi
 	ret
