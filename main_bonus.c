@@ -11,7 +11,8 @@ typedef struct s_list
 
 int ft_atoi_base(char *str, char *base);
 int	ft_list_size(t_list *lst);
-void	ft_lstadd_front(t_list **alst, void *data)
+void	ft_lstadd_front(t_list **alst, void *data);
+void ft_list_remove_if(t_list **begin_list, void *data_ref, int (*cmp)(), void (*free_fct)(void*));
 
 void display_list(t_list *list)
 {
@@ -44,6 +45,10 @@ int main(int argc, char *argv[])
 	free(list.data);
 	free(list_next.data);
 	free(list_last.data);
+
+	t_list *ptr;
+	ptr = &list;
+	ft_list_remove_if(&ptr, "bar", strcmp, free);
 	// printf("VALID Return: %i\n", ft_atoi_base("  +23", "0123456789"));
 	// printf("VALID Return: %i\n", ft_atoi_base("loool", "0123456789ABCDEF"));
 	// printf("VALID Return: %i\n", ft_atoi_base("    ---++--aasasd", "0123456789ABCDEF"));
