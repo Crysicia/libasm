@@ -11,6 +11,16 @@ typedef struct s_list
 
 int ft_atoi_base(char *str, char *base);
 int	ft_list_size(t_list *lst);
+void	ft_lstadd_front(t_list **alst, void *data)
+
+void display_list(t_list *list)
+{
+	while (list)
+	{
+		printf("Content: %s\n", (char *)list->data);
+		list = list->next;
+	}
+}
 
 int main(int argc, char *argv[])
 {
@@ -27,7 +37,7 @@ int main(int argc, char *argv[])
 	list_next.next = &list_last;
 	list_last.data = strdup("baz");
 	list_last.next = NULL;
-
+	display_list(&list);
 	printf("List size: %i\n", ft_list_size(&list));
 	printf("List size: %i\n", ft_list_size(&list_last));
 	printf("List size: %i\n", ft_list_size(NULL));
