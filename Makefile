@@ -6,7 +6,7 @@
 #    By: lpassera <lpassera@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/18 15:41:20 by lpassera          #+#    #+#              #
-#    Updated: 2021/02/26 11:11:51 by lpassera         ###   ########.fr        #
+#    Updated: 2021/03/01 10:36:29 by lpassera         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,8 @@ SRCS		= ft_strlen.s \
 			  ft_strcmp.s \
 			  ft_strdup.s
 OBJS		= $(SRCS:.s=.o)
-SRCS_BONUS	= ft_atoi_base.s
+SRCS_BONUS	= ft_atoi_base.s \
+			  ft_list_size.s
 OBJS_BONUS	= $(SRCS_BONUS:.s=.o)
 AR			= ar rcs
 ASM			= nasm
