@@ -7,7 +7,6 @@ section .text
 ; r10 = *free_fct
 ft_list_remove_if:
 	xor		rax, rax
-	xor		rbx, rbx ; CURR
 	xor		rcx, rcx ; PREC
 	xor		r8, r8
 
@@ -16,48 +15,43 @@ check_error:
 	je		exit
 	cmp		rsi, 0
 	je		exit
-	mov		rbx, [rdi]
-	mov		rcx, 0
+	mov		rbx, [rdi] ; CURR
 	
 compare:
-	mov		r8, rsi
+	cmp		rbx, 0
+	je		exit
 	push	rsi
 	push	rdi
-	push	rdx
-	push	rcx
-	mov		rsi, r8
-	mov		rdi, [rbx + 8]
+	mov		rdi, rbx
 	call	rdx
-	pop		rcx
-	pop		rdx
 	pop		rdi
 	pop		rsi
 	cmp		rax, 0
-	je		remove
+	je		dispatch
 
 list_loop:
 	mov		rcx, rbx
 	mov		rbx, [rbx + 8]
-	cmp		rbx, 0
-	je		exit
 	jmp		compare
+
+dispatch:
+	cmp		rcx, 0
+	je		update_head
+	mov		rax, [rbx + 8]
+	mov		[rcx + 8], rax
 
 remove:
 	push	rdi
-	mov		rdi, [rbx]
+	mov		rdi, rbx
 	call	r10
 	pop		rdi
-	cmp		rcx, 0
-	je		update_head
-	mov		r8, [rbx + 8]
-	mov		[rcx + 8], r8
 	jmp		compare
 
 update_head:
-	mov		r8, [rbx + 8]
-	mov		[rdi], r8
+	mov		rax, [rbx + 8]
+	mov		[rdi], rax
 	mov		rbx, [rdi]
-	jmp		compare
+	jmp		remove
 
 exit:
 	ret
