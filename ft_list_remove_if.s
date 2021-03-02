@@ -25,13 +25,13 @@ compare:
 	push	rsi
 	push	rdi
 	push	rdx
-	mov		rdi, rbx
+	mov		rdi, [rbx]
 	call	rdx
 	pop		rdx
 	pop		rdi
 	pop		rsi
 	cmp		rax, 0
-	je		dispatch
+	je		remove
 
 list_loop:
 	mov		rcx, rbx
@@ -46,12 +46,12 @@ dispatch:
 
 remove:
 	push	rsi
-	push	rdi
 	push	rdx
-	mov		rdi, rbx
+	push	rdi
+	mov		rdi, [rbx]
 	call	r10
-	pop		rdx
 	pop		rdi
+	pop		rdx
 	pop		rsi
 	jmp		compare
 
@@ -166,6 +166,113 @@ exit:
 ;         cmp     rax, 0
 ;         je      remove
 ;         mov     r8, r9
+;         jmp     compare
+; done:
+;         ret
+
+
+; section	.text
+; 		global	ft_list_remove_if
+;         extern  free
+
+; ft_list_remove_if:
+;         cmp     _begin_list_RDI, 0
+;         je      done
+;         cmp     _com_RDX, 0          ; _com_RDX = arg3
+;         je      done
+;         cmp     _free_fct_RCX, 0          ; _free_fct_RCX = arg4
+;         je      done
+;         jmp     first
+
+; remove_first:
+;         mov	_current, [_begin_list_RDI]
+; 		mov	_next, [_current + 8]
+;         ; push    _begin_list_RDI
+;         ; push    rsi
+;         ; push    _com_RDX
+;         ; push    _free_fct_RCX
+;         ; push    _current
+;         ; push    _next
+;         mov     _begin_list_RDI, [_current]
+;         call    _free_fct_RCX
+;         ; pop     _begin_list_RDI
+;         ; push    _begin_list_RDI
+;         mov     _begin_list_RDI, _current
+;         call    free
+;         ; pop     _next
+;         ; pop     _current
+;         ; pop     _free_fct_RCX
+;         ; pop     _com_RDX
+;         ; pop     rsi
+;         ; pop     _begin_list_RDI
+;         mov     [_begin_list_RDI], _next
+
+; first:
+;         mov     _current, [_begin_list_RDI]
+;         cmp     _current, 0
+;         je      done
+;         ; push    _begin_list_RDI
+;         ; push    rsi
+;         ; push    _com_RDX
+;         ; push    _free_fct_RCX
+;         mov     _begin_list_RDI, [_current]
+;         call    _com_RDX
+;         ; pop     _free_fct_RCX
+;         ; pop     _com_RDX
+;         ; pop     rsi
+;         ; pop     _begin_list_RDI
+;         cmp     rax, 0
+;         je      remove_first
+;         mov     _current, [_begin_list_RDI]
+;         jmp     compare
+
+; remove:
+;         mov	_begin_list_RDI, _next
+;         mov     _next, [_next + 8]
+;         mov     [_current + 8], _next
+;         mov     r10, _begin_list_RDI
+;         ; push    _begin_list_RDI
+;         ; push    rsi
+;         ; push    _com_RDX
+;         ; push    _free_fct_RCX
+;         ; push    _current
+;         ; push    _next
+;         mov     _begin_list_RDI, [_begin_list_RDI]
+;         call    _free_fct_RCX
+;         ; pop     _begin_list_RDI
+;         mov     _begin_list_RDI, r10
+;         ; push    _begin_list_RDI
+;         call    free
+;         ; pop     _next
+;         ; pop     _current
+;         ; pop     _free_fct_RCX
+;         ; pop     _com_RDX
+;         ; pop     rsi
+;         ; pop     _begin_list_RDI
+
+; compare:
+;         mov     _next, [_current + 8]
+;         cmp     _current, 0
+;         je      done
+;         cmp     _next, 0
+;         je      done
+;         ; push    _begin_list_RDI
+;         ; push    rsi
+;         ; push    _com_RDX
+;         ; push    _free_fct_RCX
+;         ; push    _current
+;         ; push    _next
+;         mov     _begin_list_RDI, [_next]
+;         call    _com_RDX
+;         ; pop     _next
+;         ; pop     _current
+;         ; pop     _free_fct_RCX
+;         ; pop     _com_RDX
+;         ; pop     rsi
+;         ; pop     _begin_list_RDI
+;         cmp     rax, 0
+;         je      remove
+;         mov     _current, _next
 ;         jmp     compare
 ; done:
 ;         ret
