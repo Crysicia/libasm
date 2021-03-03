@@ -60,6 +60,8 @@ remove:
 	pop		rsi
 	pop		rdx
 	mov		rbx, r8
+	cmp		rbx, 0
+	je		exit
 	jmp		list_next
 
 update_head:
