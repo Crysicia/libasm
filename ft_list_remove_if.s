@@ -16,6 +16,8 @@ check_error:
 	je		exit
 	cmp		rsi, 0
 	je		exit
+	cmp		rdx, 0
+	je		exit
 	cmp		rcx, 0
 	je		exit
 	mov		rbx, [rdi] ; CURR
