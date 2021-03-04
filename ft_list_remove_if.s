@@ -31,8 +31,10 @@ compare:
 	push	rsi
 	push	rdi
 	push	rdx
+	push	rcx
 	mov		rdi, [rbx]
 	call	rdx
+	pop		rcx
 	pop		rdx
 	pop		rdi
 	pop		rsi
@@ -46,17 +48,16 @@ compare:
 remove:
 	push	rdx
 	push	rsi
-	push rcx
+	push	rcx
 	push	rdi
 	mov		rdi, [rbx]
 	call	rcx
-	mov rax, rbx
 	pop		rdi
 	push	rdi
-	mov		rdi, rax
-	; call	free wrt ..plt
+	mov		rdi, rbx
+	call	free wrt ..plt
 	pop		rdi
-	pop rcx
+	pop 	rcx
 	pop		rsi
 	pop		rdx
 	mov		rbx, r8

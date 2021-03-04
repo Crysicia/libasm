@@ -6,7 +6,7 @@
 #    By: lpassera <lpassera@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/18 15:41:20 by lpassera          #+#    #+#              #
-#    Updated: 2021/03/03 11:56:59 by lpassera         ###   ########.fr        #
+#    Updated: 2021/03/04 11:40:21 by lpassera         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ AR			= ar rcs
 ASM			= nasm
 ASM_FLAGS	= -f elf64
 CC			= gcc
-CC_FLAGS	= -Wall -Werror -Wextra -g
+CC_FLAGS	= -Wall -Werror -Wextra -g -fsanitize=address
 LIB_FLAGS	= -L. -lasm
 RM			= rm -rf
 
