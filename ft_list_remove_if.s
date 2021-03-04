@@ -52,6 +52,7 @@ remove:
 	push	rsi
 	push	rcx
 	push	r10
+	push	r8
 	push	rdi
 	mov		rdi, [rbx]
 	call	rcx
@@ -60,6 +61,7 @@ remove:
 	mov		rdi, rbx
 	call	free wrt ..plt
 	pop		rdi
+	pop		r8
 	pop		r10
 	pop 	rcx
 	pop		rsi
