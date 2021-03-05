@@ -9,11 +9,12 @@ typedef struct s_list
 	struct s_list *next;
 }				t_list;
 
-int ft_atoi_base(char *str, char *base);
-int	ft_list_size(t_list *lst);
-int	ft_list_sizee(t_list **lst);
+int 	ft_atoi_base(char *str, char *base);
+int		ft_list_size(t_list *lst);
+int		ft_list_sizee(t_list **lst);
 void	ft_list_push_front(t_list **alst, void *data);
-void ft_list_remove_if(t_list **begin_list, void *data_ref, int (*cmp)(), void (*free_fct)(void*));
+void 	ft_list_remove_if(t_list **begin_list, void *data_ref, int (*cmp)(), void (*free_fct)(void*));
+void	ft_list_sort(t_list **begin_list, int (*cmp)());
 
 void display_list(t_list *list)
 {
@@ -53,6 +54,11 @@ int main(int argc, char *argv[])
 	printf("PPTR ADDRESS: %p\n", *pptr);
 	ft_list_push_front(pptr, strdup("foo"));
 	ft_list_push_front(pptr, strdup("DELETE"));
+	ft_list_push_front(pptr, strdup("bar"));
+	ft_list_push_front(pptr, strdup("aa"));
+	ft_list_push_front(pptr, strdup("lol"));
+	ft_list_push_front(pptr, strdup("no"));
+	ft_list_push_front(pptr, strdup("wtf"));
 	// ft_list_push_front(pptr, "DELETE");
 	ft_list_push_front(pptr, strdup("DELETE"));
 	ft_list_push_front(pptr, strdup("foo"));
@@ -64,6 +70,9 @@ int main(int argc, char *argv[])
 	printf("\n\n\n\n\n --- AFTER REMOVE ---\n\n\n\n\n");
 	display_list(*pptr);
 	printf("\n\n\n\n\n");
+	printf("---- SORT ----\n\n\n\n");
+	ft_list_sort(pptr, strcmp);
+	display_list(*pptr);
 	// printf("LIST ADDRESS: %p\n", list);
 	// printf("PPTR ADDRESS: %p\n", pptr);
 	// free(list.data);
