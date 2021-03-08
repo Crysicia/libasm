@@ -15,6 +15,7 @@ int		ft_list_sizee(t_list **lst);
 void	ft_list_push_front(t_list **alst, void *data);
 void 	ft_list_remove_if(t_list **begin_list, void *data_ref, int (*cmp)(), void (*free_fct)(void*));
 void	ft_list_sort(t_list **begin_list, int (*cmp)());
+void	ft_list_swap(t_list *previous, t_list *current, t_list *next);
 
 void display_list(t_list *list)
 {
@@ -32,13 +33,16 @@ int main(int argc, char *argv[])
 
 	t_list	*list = malloc(sizeof(t_list));
 	t_list	*list_next = malloc(sizeof(t_list));
+	t_list	*list_next_next = malloc(sizeof(t_list));
 	t_list	*list_last = malloc(sizeof(t_list));
 
-	list->data = strdup("foo");
+	list->data = strdup("one");
 	list->next = list_next;
-	list_next->data = strdup("foo");
-	list_next->next = list_last;
-	list_last->data = strdup("foo");
+	list_next->data = strdup("two");
+	list_next->next = list_next_next;
+	list_next_next->data = strdup("three");
+	list_next_next->next = list_last;
+	list_last->data = strdup("four");
 	list_last->next = NULL;
 	printf("LIST ADDRESS: %p\n", list);
 	// printf("List size: %i\n", ft_list_size(&list));
@@ -50,6 +54,12 @@ int main(int argc, char *argv[])
 
 	t_list **pptr;
 	pptr = &list;
+	display_list(*pptr);
+	ft_list_swap(list, list_next, list_next_next);
+	display_list(*pptr);
+
+
+
 	printf("LIST ADDRESS: %p\n", list);
 	printf("PPTR ADDRESS: %p\n", *pptr);
 	ft_list_push_front(pptr, strdup("foo"));
