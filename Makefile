@@ -6,7 +6,7 @@
 #    By: lpassera <lpassera@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/18 15:41:20 by lpassera          #+#    #+#              #
-#    Updated: 2021/03/08 11:51:25 by lpassera         ###   ########.fr        #
+#    Updated: 2021/03/09 13:25:00 by lpassera         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,8 +22,7 @@ SRCS_BONUS	= ft_atoi_base.s \
 			  ft_list_size.s \
 			  ft_list_push_front.s \
 			  ft_list_remove_if.s \
-			  ft_list_sort.s \
-			  ft_list_swap.s
+			  ft_list_sort.s
 OBJS_BONUS	= $(SRCS_BONUS:.s=.o)
 AR			= ar rcs
 ASM			= nasm

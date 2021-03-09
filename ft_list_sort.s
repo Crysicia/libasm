@@ -52,7 +52,7 @@ swap:
 	mov		r8, 1
 	mov		rax, [rcx]
 	mov		r10, [rbx]
-	mov     [rcx], r10
+	mov		[rcx], r10
 	mov		[rbx], rax
 	jmp		increment_loop
 
