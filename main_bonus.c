@@ -3,6 +3,10 @@
 #include <unistd.h>
 #include <stdlib.h>
 
+#define GREEN "\e[0;32m"
+#define RED "\e[0;31m"
+#define RESET "\e[0m"
+
 typedef struct s_list
 {
 	void *data;
@@ -15,16 +19,26 @@ int		ft_list_sizee(t_list **lst);
 void	ft_list_push_front(t_list **alst, void *data);
 void 	ft_list_remove_if(t_list **begin_list, void *data_ref, int (*cmp)(), void (*free_fct)(void*));
 void	ft_list_sort(t_list **begin_list, int (*cmp)());
-void	ft_list_swap(t_list *previous, t_list *current, t_list *next);
 
-void display_list(t_list *list)
+// void display_list(t_list *list)
+// {
+// 	while (list)
+// 	{
+// 		printf("----- %p\nContent: [%s]\nContent address: %p\nNext: %p\n", list, (char *)list->data, list->data, list->next);
+// 		list = list->next;
+// 	}
+// }
+
+void print_list(t_list *list)
 {
 	while (list)
 	{
-		printf("----- %p\nContent: [%s]\nContent address: %p\nNext: %p\n", list, (char *)list->data, list->data, list->next);
+		printf("[%s] -> ", (char *)list->data);
 		list = list->next;
 	}
+	printf("END\n");
 }
+
 
 int main(int argc, char *argv[])
 {
@@ -54,8 +68,7 @@ int main(int argc, char *argv[])
 
 	t_list **pptr;
 	pptr = &list;
-	display_list(*pptr);
-	ft_list_swap(list, list_next, list_next_next);
+	print_list(*pptr);
 	display_list(*pptr);
 
 
