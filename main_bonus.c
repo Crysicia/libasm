@@ -89,17 +89,42 @@ void test_list_push_front(t_list *list, void *data, int expected_size)
 	printf(RESET);
 }
 
-void test_list_remove_if(t_list *list, char *to_remove, int expected_size)
+void test_list_remove_if(t_list **list, char *to_remove, int expected_size)
 {
 	char *status = RED;
 
-	ft_list_remove_if(&list, to_remove, strcmp, free);
-	int size_after = ft_list_size(list);
+	ft_list_remove_if(list, to_remove, strcmp, free);
+	int size_after = ft_list_size(*list);
 	if (size_after == expected_size)
 		status = GREEN;
 	printf("%s(Expected): %4d, (Output): %4d\n-- List:\n-- ", status, expected_size, size_after);
+	print_list(*list);
+	printf(RESET);
+}
+
+void test_list_sort(t_list *list)
+{
+	char *status = RED;
+
+	int size_before = ft_list_size(list);
+	printf("Before:\n-- ");
+	print_list(list);
+	ft_list_sort(&list, strcmp);
+	int size_after = ft_list_size(list);
+	if (size_before == size_after)
+		status = GREEN;
+	printf("%sAfter\n-- ", status);
 	print_list(list);
 	printf(RESET);
+}
+
+void test_atoi_base(char *str, char *base, int expected)
+{
+	char *status = RED;
+	int output = ft_atoi_base(str, base);
+	if (expected == output)
+		status = GREEN;
+	printf("%s(Expected): %4d, (Output): %4d - [%s], [%s]"RESET"\n", status, expected, output, str, base);
 }
 
 int main(void)
@@ -124,7 +149,10 @@ int main(void)
 	test_list_push_front(list, NULL, 4);
 	t_list **pptr;
 	pptr = generate_list();
-	test_list_remove_if(*pptr, "aaaa", 4);
+	test_list_remove_if(pptr, "aaaa", 4);
+	test_list_sort(*pptr);
+	printf("--- \e[1;36mft_atoi_base\e[0m ---\n");
+	test_atoi_base("1337", "0123456789", 1337);
 	// print_list(*pptr);
 	// display_list(*pptr);
 
