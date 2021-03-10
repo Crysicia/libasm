@@ -20,14 +20,39 @@ void	ft_list_push_front(t_list **alst, void *data);
 void 	ft_list_remove_if(t_list **begin_list, void *data_ref, int (*cmp)(), void (*free_fct)(void*));
 void	ft_list_sort(t_list **begin_list, int (*cmp)());
 
-// void display_list(t_list *list)
-// {
-// 	while (list)
-// 	{
-// 		printf("----- %p\nContent: [%s]\nContent address: %p\nNext: %p\n", list, (char *)list->data, list->data, list->next);
-// 		list = list->next;
-// 	}
-// }
+void display_list(t_list *list)
+{
+	while (list)
+	{
+		printf("----- %p\nContent: [%s]\nContent address: %p\nNext: %p\n", list, (char *)list->data, list->data, list->next);
+		list = list->next;
+	}
+}
+
+t_list **generate_list(void)
+{
+	t_list **list = malloc(sizeof(t_list *));
+	ft_list_push_front(list, strdup("aaaa"));
+	ft_list_push_front(list, strdup("vvvv"));
+	ft_list_push_front(list, strdup("dddd"));
+	ft_list_push_front(list, strdup("aaaa"));
+	ft_list_push_front(list, strdup("bbbb"));
+	ft_list_push_front(list, strdup("cccc"));
+	ft_list_push_front(list, strdup("aaaa"));
+	return (list);
+}
+
+void free_list(t_list *list)
+{
+	t_list *old;
+	while (list)
+	{
+		free(list->data);
+		old = list;
+		list = list->next;
+		free(old);
+	}
+}
 
 void print_list(t_list *list)
 {
@@ -39,12 +64,46 @@ void print_list(t_list *list)
 	printf("END\n");
 }
 
-
-int main(int argc, char *argv[])
+void test_list_size(t_list *list, int expected_size)
 {
-	(void)argc;
-	(void)argv;
+	char *status = RED;
+	int output = ft_list_size(list);
 
+	if (output == expected_size)
+		status = GREEN;
+	printf("%s(Expected): %4d, (Output): %4d\n-- List:\n-- ", status, expected_size, output);
+	print_list(list);
+	printf(RESET);
+}
+
+void test_list_push_front(t_list *list, void *data, int expected_size)
+{
+	char *status = RED;
+
+	ft_list_push_front(&list, data);
+	int size_after = ft_list_size(list);
+	if (size_after == expected_size)
+		status = GREEN;
+	printf("%s(Expected): %4d, (Output): %4d\n-- List:\n-- ", status, expected_size, size_after);
+	print_list(list);
+	printf(RESET);
+}
+
+void test_list_remove_if(t_list *list, char *to_remove, int expected_size)
+{
+	char *status = RED;
+
+	ft_list_remove_if(&list, to_remove, strcmp, free);
+	int size_after = ft_list_size(list);
+	if (size_after == expected_size)
+		status = GREEN;
+	printf("%s(Expected): %4d, (Output): %4d\n-- List:\n-- ", status, expected_size, size_after);
+	print_list(list);
+	printf(RESET);
+}
+
+int main(void)
+{
 	t_list	*list = malloc(sizeof(t_list));
 	t_list	*list_next = malloc(sizeof(t_list));
 	t_list	*list_next_next = malloc(sizeof(t_list));
@@ -58,47 +117,46 @@ int main(int argc, char *argv[])
 	list_next_next->next = list_last;
 	list_last->data = strdup("z");
 	list_last->next = NULL;
-	printf("LIST ADDRESS: %p\n", list);
-	// printf("List size: %i\n", ft_list_size(&list));
-	printf("LIST ADDRESS: %p\n", list);
-	// printf("List size: %i\n", ft_list_sizee(&ptr));
-	printf("LIST ADDRESS: %p\n", list);
-	printf("List size: %i\n", ft_list_size(list_last));
-	printf("List size: %i\n", ft_list_size(NULL));
+	test_list_size(list, 4);
+	test_list_size(NULL, 0);
 
+	test_list_push_front(list, strdup("FRONT"), 5);
+	test_list_push_front(list, NULL, 4);
 	t_list **pptr;
-	pptr = &list;
-	print_list(*pptr);
-	display_list(*pptr);
+	pptr = generate_list();
+	test_list_remove_if(*pptr, "aaaa", 4);
+	// print_list(*pptr);
+	// display_list(*pptr);
 
 
 
-	printf("LIST ADDRESS: %p\n", list);
-	printf("PPTR ADDRESS: %p\n", *pptr);
-	// ft_list_push_front(pptr, strdup("i"));
-	// ft_list_push_front(pptr, strdup("h"));
-	// ft_list_push_front(pptr, strdup("g"));
-	// ft_list_push_front(pptr, strdup("f"));
-	// ft_list_push_front(pptr, strdup("e"));
-	ft_list_push_front(pptr, strdup("a"));
-	// ft_list_push_front(pptr, strdup("d"));
-	// ft_list_push_front(pptr, strdup("c"));
-	// ft_list_push_front(pptr, "DELETE");
-	ft_list_push_front(pptr, strdup("b"));
-	printf("PPTR ADDRESS: %p\n", *pptr);
-	printf("\n\n\n\n\n");
-	display_list(*pptr);
-	printf("REMOVING:\n\n\n\n\n");
-	ft_list_remove_if(pptr, "w", strcmp, free);
-	ft_list_remove_if(pptr, "x", strcmp, free);
-	ft_list_remove_if(pptr, "y", strcmp, free);
-	ft_list_remove_if(pptr, "x", strcmp, free);
-	printf("\n\n\n\n\n --- AFTER REMOVE ---\n\n\n\n\n");
-	display_list(*pptr);
-	printf("\n\n\n\n\n");
-	printf("---- SORT ----\n\n\n\n");
-	ft_list_sort(pptr, strcmp);
-	display_list(*pptr);
+	// printf("LIST ADDRESS: %p\n", list);
+	// printf("PPTR ADDRESS: %p\n", *pptr);
+	// // ft_list_push_front(pptr, strdup("i"));
+	// // ft_list_push_front(pptr, strdup("h"));
+	// // ft_list_push_front(pptr, strdup("g"));
+	// // ft_list_push_front(pptr, strdup("f"));
+	// // ft_list_push_front(pptr, strdup("e"));
+	// ft_list_push_front(pptr, strdup("a"));
+	// // ft_list_push_front(pptr, strdup("d"));
+	// // ft_list_push_front(pptr, strdup("c"));
+	// // ft_list_push_front(pptr, "DELETE");
+	// ft_list_push_front(pptr, strdup("b"));
+	// printf("PPTR ADDRESS: %p\n", *pptr);
+	// printf("\n\n\n\n\n");
+	// display_list(*pptr);
+	// printf("REMOVING:\n\n\n\n\n");
+	// ft_list_remove_if(pptr, "w", strcmp, free);
+	// ft_list_remove_if(pptr, "x", strcmp, free);
+	// ft_list_remove_if(pptr, "y", strcmp, free);
+	// ft_list_remove_if(pptr, "x", strcmp, free);
+	// printf("\n\n\n\n\n --- AFTER REMOVE ---\n\n\n\n\n");
+	// display_list(*pptr);
+	// printf("\n\n\n\n\n");
+	// printf("---- SORT ----\n\n\n\n");
+	// ft_list_sort(pptr, strcmp);
+	// display_list(*pptr);
+	// free_list(*pptr);
 	// printf("LIST ADDRESS: %p\n", list);
 	// printf("PPTR ADDRESS: %p\n", pptr);
 	// free(list.data);
