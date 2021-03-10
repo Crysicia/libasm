@@ -22,34 +22,88 @@ void	ft_list_sort(t_list **begin_list, int (*cmp)());
 
 t_list **generate_7_nodes(void)
 {
-	t_list **list = malloc(sizeof(t_list *));
-	ft_list_push_front(list, strdup("aaaa"));
-	ft_list_push_front(list, strdup("vvvv"));
-	ft_list_push_front(list, strdup("dddd"));
-	ft_list_push_front(list, strdup("aaaa"));
-	ft_list_push_front(list, strdup("bbbb"));
-	ft_list_push_front(list, strdup("cccc"));
-	ft_list_push_front(list, strdup("aaaa"));
+	t_list **list = malloc(sizeof(t_list **));
+	t_list *one = malloc(sizeof(t_list));
+	t_list *two = malloc(sizeof(t_list));
+	t_list *three = malloc(sizeof(t_list));
+	t_list *four = malloc(sizeof(t_list));
+	t_list *five = malloc(sizeof(t_list));
+	t_list *six = malloc(sizeof(t_list));
+	t_list *seven = malloc(sizeof(t_list));
+
+	one->data = strdup("aaaa");
+	two->data = strdup("cccc");
+	three->data = strdup("bbbb");
+	four->data = strdup("aaaa");
+	five->data = strdup("dddd");
+	six->data = strdup("vvvv");
+	seven->data = strdup("aaaa");
+
+	one->next = two;
+	two->next = three;
+	three->next = four;
+	four->next = five;
+	five->next = six;
+	six->next = seven;
+	seven->next = NULL;
+
+	*list = one;
 	return (list);
 }
 
 t_list **generate_5_nodes(void)
 {
 	t_list **list = malloc(sizeof(t_list *));
-	ft_list_push_front(list, strdup("Epsilon"));
-	ft_list_push_front(list, strdup("Delta"));
-	ft_list_push_front(list, strdup("Gamma"));
-	ft_list_push_front(list, strdup("Beta"));
-	ft_list_push_front(list, strdup("Alpha"));
+	t_list *one = malloc(sizeof(t_list));
+	t_list *two = malloc(sizeof(t_list));
+	t_list *three = malloc(sizeof(t_list));
+	t_list *four = malloc(sizeof(t_list));
+	t_list *five = malloc(sizeof(t_list));
+
+	one->data = strdup("Alpha");
+	two->data = strdup("Beta");
+	three->data = strdup("Gamma");
+	four->data = strdup("Delta");
+	five->data = strdup("Epsilon");
+
+	one->next = two;
+	two->next = three;
+	three->next = four;
+	four->next = five;
+	five->next = NULL;
+
+	*list = one;
 	return (list);
 }
 
 t_list **generate_3_nodes(void)
 {
 	t_list **list = malloc(sizeof(t_list *));
-	ft_list_push_front(list, strdup("3rd"));
-	ft_list_push_front(list, strdup("2nd"));
-	ft_list_push_front(list, strdup("1st"));
+	t_list *one = malloc(sizeof(t_list));
+	t_list *two = malloc(sizeof(t_list));
+	t_list *three = malloc(sizeof(t_list));
+
+	one->data = strdup("1st");
+	two->data = strdup("2nd");
+	three->data = strdup("3rd");
+
+	one->next = two;
+	two->next = three;
+	three->next = NULL;
+
+	*list = one;
+	return (list);
+}
+
+t_list **generate_1_node(void)
+{
+	t_list **list = malloc(sizeof(t_list *));
+	t_list *one = malloc(sizeof(t_list));
+
+	one->data = strdup("I am the only one");
+	one->next = NULL;
+
+	*list = one;
 	return (list);
 }
 
@@ -128,7 +182,6 @@ void test_atoi_base(char *str, char *base, int expected)
 
 int main(void)
 {
-
 	printf("--- \e[1;36mft_list_size\e[0m ---\n");
 	t_list **size = generate_7_nodes();
 	test_list_size(*size, 7);
@@ -148,18 +201,26 @@ int main(void)
 	test_list_push_front(NULL, NULL, 0);
 
 	printf("--- \e[1;36mft_list_remove_if\e[0m ---\n");
-	// t_list **remove = generate_7_nodes();
-	// test_list_remove_if(remove, "aaaa", 4);
+	t_list **remove = generate_7_nodes();
+	test_list_remove_if(remove, "aaaa", 4);
 	t_list **remove2 = generate_7_nodes();
 	test_list_remove_if(remove2, "bbbb", 6);
-	// t_list **remove3 = generate_7_nodes();
-	// test_list_remove_if(remove3, NULL, 7);
+	t_list **remove3 = generate_7_nodes();
+	test_list_remove_if(remove3, NULL, 7);
+
 	printf("--- \e[1;36mft_list_sort\e[0m ---\n");
-	// test_list_sort(*remove);
+	t_list **sort = generate_7_nodes();
+	test_list_sort(*sort);
+	t_list **sort2 = generate_5_nodes();
+	test_list_sort(*sort2);
+	t_list **sort3 = generate_3_nodes();
+	test_list_sort(*sort3);
+	t_list **sort4 = generate_1_node();
+	test_list_sort(*sort4);
+	test_list_sort(NULL);
 
-
-	test_atoi_base("1337", "0123456789", 1337);
 	printf("--- \e[1;36mft_atoi_base\e[0m ---\n");
+	test_atoi_base("1337", "0123456789", 1337);
 	test_atoi_base("     1337", "0123456789", 1337);
 	test_atoi_base("-1337", "0123456789", -1337);
 	test_atoi_base("+1337", "0123456789", 1337);

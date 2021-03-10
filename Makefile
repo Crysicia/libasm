@@ -6,7 +6,7 @@
 #    By: lpassera <lpassera@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/18 15:41:20 by lpassera          #+#    #+#              #
-#    Updated: 2021/03/10 15:51:37 by lpassera         ###   ########.fr        #
+#    Updated: 2021/03/10 23:50:19 by lpassera         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,9 +28,11 @@ AR			= ar rcs
 ASM			= nasm
 ASM_FLAGS	= -f elf64
 CC			= gcc
-CC_FLAGS	= -g -fsanitize=address #-Wall -Werror -Wextra -g
+CC_FLAGS	= -Wall -Werror -Wextra
 LIB_FLAGS	= -L. -lasm
 RM			= rm -rf
+TEST		= test
+TEST_BONUS	= test_bonus
 
 %.o: %.s
 	$(ASM) $(ASM_FLAGS) $< -o $@
@@ -51,12 +53,12 @@ fclean: clean
 	$(RM) $(NAME)
 
 test: $(NAME)
-	$(CC) $(CC_FLAGS) main.c $(LIB_FLAGS)
+	$(CC) $(CC_FLAGS) main.c $(LIB_FLAGS) -o $(TEST)
 
 test_bonus: bonus
-	$(CC) $(CC_FLAGS) main_bonus.c $(LIB_FLAGS)
+	$(CC) $(CC_FLAGS) main_bonus.c $(LIB_FLAGS) -o $(TEST_BONUS)
 
 clean_test:
-	$(RM) a.out
+	$(RM) $(TEST) $(TEST_BONUS)
 
 re: fclean $(NAME)
